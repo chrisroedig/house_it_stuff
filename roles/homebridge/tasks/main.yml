@@ -1,0 +1,3 @@
+---
+- include: install_nodejs.yml
+- include: install_homebridge.yml

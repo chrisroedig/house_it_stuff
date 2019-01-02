@@ -1,4 +1,7 @@
 ---
+  - hosts:  pi
+    vars_files:
+      - env_vars.yml
   - name: setup the basics
     hosts: pi
     tags:
@@ -27,3 +30,9 @@
     hosts: pi
     roles:
       - iq_envoy_data
+    tags: iq_envoy
+  - name: setup homebridge server
+    hosts: pi
+    roles:
+      - homebridge
+    tags: homebridge

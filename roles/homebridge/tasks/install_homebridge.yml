@@ -1,0 +1,9 @@
+---
+# Install Homebridge via npm
+
+- name: 'install the homebridge package'
+  npm:
+    name: homebridge
+    global: yes
+    state: present
+  become: true

@@ -1,3 +1,0 @@
-# a raspberry pi running in the house, to handle local things
-[pi]
-{{pi_hostname}} ansible_user=pi ansible_ssh_pass=furthest-hawaii-kings
