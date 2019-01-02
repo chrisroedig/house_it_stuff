@@ -1,0 +1,3 @@
+---
+- include: install_monitoring_scripts.yml
+- include: setup_cron.yml

@@ -1,0 +1,6 @@
+---
+# Sets up cron to run the iq envoy monitor script
+- name: Configure Cron
+  cron:
+    name: iq envoy influxdb reporting
+    job: 'cd ~/monitoring_scripts && python record_envoy_data.py'

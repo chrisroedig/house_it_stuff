@@ -1,0 +1,15 @@
+---
+# These tasks are responsible for cloning the monitroing scripts and templating the local configs
+
+- name: Copy the code from repository
+  git:
+    repo: "{{ monitoring_scripts_repo }}"
+    dest: ~/monitoring_scripts
+    force: yes
+
+- name: install dependencies
+  pip:
+    name: [influxdb, pyyaml]
+
+- name: Creates the config file
+  template: src=config.yml.j2 dest=~/monitoring_scripts/config.yml
