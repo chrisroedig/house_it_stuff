@@ -1,0 +1,9 @@
+---
+- name: 'update package cache'
+  apt:
+    update_cache: yes
+  become: true
+- name: 'upgrade packages'
+  apt:
+    upgrade: safe
+  become: true

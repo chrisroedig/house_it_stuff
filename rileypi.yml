@@ -4,35 +4,19 @@
       - env_vars.yml
   - name: setup the basics
     hosts: pi
+    roles:
+      - base
     tags:
-         - hostprep
-    tasks:
-      - name: 'rename the host'
-        hostname:
-          name: rileypi.local
-        become: true
-      - name: 'update package cache'
-        apt:
-          update_cache: yes
-        become: true
-      - name: 'upgrade packages'
-        apt:
-          upgrade: safe
-        become: true
-      - name: 'install basic dependencies'
-        apt:
-          name: ['avahi-daemon', 'vim', 'git', 'python-pip']
-          state: present
-        become: true
-      - name: 'Reboot the damn thing'
-        reboot:
+      - hostprep
   - name: setup iq envoy monitoring
     hosts: pi
     roles:
       - iq_envoy_data
-    tags: iq_envoy
+    tags:
+      - iq_envoy
   - name: setup homebridge server
     hosts: pi
     roles:
       - homebridge
-    tags: homebridge
+    tags:
+      - homebridge

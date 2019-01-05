@@ -1,0 +1,6 @@
+---
+- name: 'install basic dependencies'
+  apt:
+    name: ['avahi-daemon', 'vim', 'git', 'python-pip']
+    state: present
+  become: true

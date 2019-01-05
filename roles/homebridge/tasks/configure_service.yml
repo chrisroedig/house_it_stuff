@@ -1,0 +1,28 @@
+---
+# Create the homebridge user and configure the service
+
+- name: create homebridge user
+  user:
+    name: homebridge
+    comment: user that runs the homebridge service
+    system: yes
+    create_home: no
+  become: true
+  tags: homebridge
+
+
+- name: create service configuration file
+  template:
+    src: homebridge.j2
+    dest: /etc/default/homebridge
+    owner: root
+  become: true
+  tags: homebridge
+
+- name: create service definition file
+  template:
+    src: homebridge.service.j2
+    dest: /etc/systemd/system/homebridge.service
+    owner: root
+  become: true
+  tags: homebridge

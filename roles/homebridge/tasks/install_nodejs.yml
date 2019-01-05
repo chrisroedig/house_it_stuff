@@ -6,13 +6,18 @@
     name: libavahi-compat-libdnssd-dev
     state: present
   become: true
+  tags: homebridge
+
 - name: Install nodejs
   apt:
     name: nodejs
     state: present
   become: true
+  tags: homebridge
+
 - name: Install npm
   apt:
     name: npm
     state: present
   become: true
+  tags: homebridge

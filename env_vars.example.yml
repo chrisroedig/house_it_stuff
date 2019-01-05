@@ -3,3 +3,6 @@
 influx_db_host: -
 influx_db_username: -
 influx_db_password: -
+
+homebridge_username: 0X:0X:0X:0X:0X:0X
+homebridge_pin: ###-###-##
