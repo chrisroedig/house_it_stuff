@@ -1,0 +1,5 @@
+- name: Restart service homebridge, in all cases
+  service:
+    name: homebridge
+    state: restarted
+  become: true

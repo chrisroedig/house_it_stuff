@@ -1,0 +1,19 @@
+---
+# Create /var/lib/homebridge and the config.json file
+
+- name: create /var/lib/homebridge
+  # create a directory if it doesn't exist
+  file:
+    path: /var/lib/homebridge
+    owner: homebridge
+    group: homebridge
+    state: directory
+  become: true
+
+- name: create config.json
+  template:
+    src: config.json.j2
+    dest: /var/lib/homebridge/config.json
+    owner: homebridge
+    group: homebridge
+  become: true

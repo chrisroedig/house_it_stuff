@@ -2,3 +2,5 @@
 - include: install_nodejs.yml
 - include: install_homebridge.yml
 - include: configure_service.yml
+- include: configure_homebridge.yml
+- include: restart_service.yml
