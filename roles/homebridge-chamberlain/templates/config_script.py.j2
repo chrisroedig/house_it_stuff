@@ -1,0 +1,55 @@
+import json
+import requests
+import argparse
+
+def get_device_id(username, password):
+    data = {
+        "username": username,
+        "password": password
+        }
+    headers = {
+        'MyQApplicationId': "NWknvuBd7LoFHfXmKNMBcgajXtZEgKUh4V7WNzMidrpUUluDpVYVZx+xT4PCM5Kx",
+        'Content-Type': "application/json"
+        }
+    auth_resp=requests.post('https://myqexternal.myqdevice.com/api/v4/User/Validate', json = data, headers = headers)
+    security_token = auth_resp.json()['SecurityToken']
+
+    headers['SecurityToken'] = security_token
+    list_resp=requests.get('https://myqexternal.myqdevice.com/api/v4/userdevicedetails/get', headers = headers)
+
+    device_id = None
+    for dev in list_resp.json()['Devices']:
+        if dev['MyQDeviceTypeId'] == 17:
+            device_id = dev['MyQDeviceId']
+            break
+    return device_id
+
+def update_config(username, password, device_id, filename):
+    config=json.loads(open(filename).read())
+    acc_config = {
+        'accessory': 'Chamberlain',
+        'name': 'Garage Door',
+        'username': username,
+        'password': password,
+        'deviceId': device_id
+    }
+    updated = False
+    for i, acc in enumerate(config['accessories']):
+        if acc['accessory'] == 'Chamberlain':
+            config['accessories'][i] = acc_config
+            updated = True
+    if not updated:
+        config['accessories'].append(acc_config)
+    f = open('config.json','w')
+    f.write(json.dumps(config))
+    f.close()
+
+
+username="{{myq_username}}"
+password="{{myq_password}}"
+
+
+device_id = get_device_id(username, password)
+print('found device_id: '+str(device_id))
+update_config(username, password, device_id, 'config.json')
+print('successfully wrote config')

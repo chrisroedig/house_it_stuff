@@ -1,0 +1,11 @@
+---
+  # do necessary package install to enable myq-homebridge
+  - name: npm install homebridge-chamberlain
+    npm:
+      name: homebridge-chamberlain
+      global: yes
+    become: true
+  - name: pip install requests
+    pip:
+      name: requests
+    become: true

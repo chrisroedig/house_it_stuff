@@ -1,0 +1,17 @@
+---
+# install the homebridge config file
+# https://gist.github.com/johannrichard/0ad0de1feb6adb9eb61a/
+
+- name: create /var/lib/homebridge
+  file:
+    path: /var/lib/homebridge
+    owner: homebridge
+    group: homebridge
+    state: directory
+
+- name: install config file
+  template:
+    path: /var/lib/homebridge
+    owner: homebridge
+    group: homebridge
+    state: directory

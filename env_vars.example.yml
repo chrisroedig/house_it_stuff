@@ -6,3 +6,6 @@ influx_db_password: -
 
 homebridge_username: 0X:0X:0X:0X:0X:0X
 homebridge_pin: ###-###-##
+
+myq_username: -
+myq_password: -

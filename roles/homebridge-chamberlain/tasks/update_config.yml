@@ -1,0 +1,21 @@
+---
+  # update homebridge config JSON to add chamberlain opener as an accessory
+  - name: copy the config update script
+    template:
+      src: config_script.py.j2
+      dest: /var/lib/homebridge/chamberlain_config.py
+      owner: homebridge
+      group: homebridge
+    become: true
+
+  - name: run config update script
+    command: python chamberlain_config.py
+    args:
+      chdir: /var/lib/homebridge
+    become: true
+
+  - name: Restart service homebridge, in all cases
+    service:
+      name: homebridge
+      state: restarted
+    become: true

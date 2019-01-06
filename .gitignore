@@ -1,3 +1,4 @@
 env_vars.yml
 hosts
 *.retry
+*.pyc

@@ -1,22 +1,26 @@
 ---
-  - hosts:  pi
-    vars_files:
-      - env_vars.yml
+
   - name: setup the basics
     hosts: pi
+    vars_files:
+      - env_vars.yml
     roles:
       - base
-    tags:
-      - hostprep
   - name: setup iq envoy monitoring
     hosts: pi
+    vars_files:
+      - env_vars.yml
     roles:
       - iq_envoy_data
-    tags:
-      - iq_envoy
   - name: setup homebridge server
     hosts: pi
+    vars_files:
+      - env_vars.yml
     roles:
       - homebridge
-    tags:
-      - homebridge
+  - name: set up homebridge-chamberlain
+    hosts: pi
+    vars_files:
+      - env_vars.yml
+    roles:
+      - homebridge-chamberlain
