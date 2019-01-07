@@ -1,0 +1,12 @@
+---
+# installs and starts the mosquitto MQTT broker
+- name: 'install apt packages'
+  apt:
+    name: ['mosquitto', 'mosquitto-clients']
+    state: present
+  become: true
+- name: Restart service mosquitto, in all cases
+  service:
+    name: mosquitto
+    state: restarted
+  become: true

@@ -1,0 +1,4 @@
+---
+  # setup an mqtt broker, configure the homebridge mqtt plugin
+  #- include: install_mosquitto.yml
+  - include: setup_homebridge_mqtt.yml
