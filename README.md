@@ -15,8 +15,21 @@ To run all of it
 ansible-playbook -i hosts rileypi.yml
 ```
 
-To skip the lengthy host prepping
+## Prepping new Raspbian SD card
+
+- Assuming **Raspbian GNU/Linux** as the OS
+- Download and flash: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+- Remount the SD, open a terminal, cd to the Volume
+- create an empty file `ssh` (enables ssh on boot)
+- create the file `wpa_supplicant.conf`
+
 ```
-ansible-playbook -i hosts rileypi.yml --skip-tags=hostprep
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+  ssid="--ssid--"
+  psk="--psk--"
+  key_mgmt=WPA-PSK
+  }
 ```
-Role based tasks are tagged, helps run just one thing as needed
