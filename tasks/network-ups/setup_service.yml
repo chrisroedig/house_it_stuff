@@ -1,0 +1,17 @@
+---
+# Install nut (network ups tools)
+- name: 'install nut-client'
+  apt:
+    name: nut-client
+    state: present
+  become: true
+- name: 'install the nut server'
+  apt:
+    name: nut-server
+    state: present
+  become: true
+- name: 'install usbutils'
+  apt:
+    name: usbutils
+    state: present
+  become: true

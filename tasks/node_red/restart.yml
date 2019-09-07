@@ -1,0 +1,5 @@
+- name: Restart service node-red, in all cases
+  service:
+    name: node-red
+    state: restarted
+  become: true

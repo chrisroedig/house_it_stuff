@@ -9,7 +9,7 @@
 
 - name: install dependencies
   pip:
-    name: [influxdb, pyyaml]
+    name: [influxdb, pyyaml, requests]
 
 - name: Creates the config file
   template: src=config.yml.j2 dest=~/monitoring_scripts/config.yml

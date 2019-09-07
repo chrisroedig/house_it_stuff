@@ -1,0 +1,4 @@
+---
+- include: install_node_red.yml
+- include: configure_service.yml
+# - include: set_admin_passwd.yml

@@ -1,0 +1,8 @@
+---
+# install influxdb
+- name: install node-red-contrib-influxdb
+  npm:
+    name: node-red-contrib-influxdb
+    path: /home/nodered/.node-red
+  become: true
+  become_user: nodered

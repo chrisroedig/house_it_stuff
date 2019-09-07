@@ -1,7 +1,0 @@
----
-# Create the homebridge user and configure the service
-
-- name: 'rename the host'
-  hostname:
-    name: rileypi.local
-  become: true

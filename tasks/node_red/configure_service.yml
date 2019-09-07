@@ -1,0 +1,15 @@
+---
+  # configure and restart the node-red service
+
+- name: create service definition file
+  template:
+    src: node-red.service.j2
+    dest: /etc/systemd/system/node-red.service
+    owner: root
+  become: true
+
+- name: create the working directory
+  file:
+    path: /home/nodered/.node-red
+    state: directory
+    owner: nodered  

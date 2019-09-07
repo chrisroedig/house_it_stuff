@@ -1,4 +1,0 @@
----
-- include: 'rename_host.yml'
-- include: 'apt_maintenance.yml'
-- include: 'apt_installs.yml'

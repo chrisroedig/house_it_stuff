@@ -1,0 +1,24 @@
+---
+# Install node-red via apt
+- name: create node-red user
+  user:
+    name: nodered
+    comment: user that runs the node-red service
+    system: yes
+    create_home: yes
+  become: true
+
+- name: 'install the node-red package'
+  apt:
+    name: nodered
+    state: present
+  become: true
+
+- name: 'install node-red-admin'
+  npm:
+    name: node-red-admin
+    global: yes
+    state: present
+  become: true
+
+#install node-red-contrib-influxdb to /home/nodered/.node-red/node-modules

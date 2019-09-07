@@ -1,26 +1,84 @@
 ---
+  - hosts: pi
+    vars_files:
+      - env_vars.yml
+    tasks:
+      # basic things we need for the host
+      - include: tasks/update.yml
+        tags:
+          - prep
+          - update
+      - include: tasks/prep.yml
+        tags:
+          - prep
+      # homebridge and add-ons
+      - include: tasks/homebridge/install.yml
+        tags: homebridge
+      - include: tasks/homebridge_chamberlain/install.yml 
+        tags: chamberlain
+      - include: tasks/mqtt/install.yml 
+        tags: mqtt
+      - include: tasks/homebridge/restart.yml
+        tags:
+          - mqtt
+          - homebridge
+          - chamberlain
+          - restart
+      # iq_envoy monitor
+      - include: tasks/monitoring_scripts/install.yml
+        tags:
+          - monitoring
+      # NODE RED
+      - include: tasks/node_red/install.yml
+        tags:
+          - nodered
+          - install
+      - include: tasks/node_red/restart.yml
+        tags:
+          - nodered
+          - restart
+        
 
-  - name: setup the basics
-    hosts: pi
-    vars_files:
-      - env_vars.yml
-    roles:
-      - base
-  - name: setup iq envoy monitoring
-    hosts: pi
-    vars_files:
-      - env_vars.yml
-    roles:
-      - iq_envoy_data
-  - name: setup homebridge server
-    hosts: pi
-    vars_files:
-      - env_vars.yml
-    roles:
-      - homebridge
-  - name: set up homebridge-chamberlain
-    hosts: pi
-    vars_files:
-      - env_vars.yml
-    roles:
-      - homebridge-chamberlain
+
+  #   roles:
+  #     - base
+  #   tags: 
+  #     - base
+  # - name: setup homebridge server
+  #   hosts: pi
+  #   vars_files:
+  #     - env_vars.yml
+  #   roles:
+  #     - homebridge
+  #   tags: 
+  #     - homebridge
+  # - name: set up homebridge-chamberlain
+  #   hosts: pi
+  #   vars_files:
+  #     - env_vars.yml
+  #   roles:
+  #     - homebridge-chamberlain
+  #   tags: 
+  #     - homebridge
+  # - name: set up mqtt broker
+  #   hosts: pi
+  #   vars_files:
+  #     - env_vars.yml
+  #   roles:
+  #     - mqtt-broker
+  #   tags: 
+  #     - nodered
+  # - name: set up node-red
+  #   hosts: pi
+  #   vars_files:
+  #     - env_vars.yml
+  #   roles:
+  #     - node-red
+  #   tags: 
+  #     - nodered
+  # # - name: set up network-ups
+  # #   hosts: pi
+  # #   vars_files:
+  # #     - env_vars.yml
+  # #   roles:
+  # #     - network-ups
