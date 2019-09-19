@@ -9,3 +9,6 @@ homebridge_pin: ###-###-##
 
 myq_username: -
 myq_password: -
+
+node_red_username: -
+node_red_password: -

@@ -5,4 +5,17 @@
     name: node-red-contrib-influxdb
     path: /home/nodered/.node-red
   become: true
-  become_user: nodered
+
+- name: install node-red-contrib-alexa-home
+  npm:
+    name: node-red-contrib-alexa-home
+    path: /home/nodered/.node-red
+  become: true
+
+- name: Ensure nodered owns it's node_modules
+  file:
+    path: /home/nodered/.nodered
+    state: directory
+    recurse: yes
+    owner: nodered
+    group: nodered

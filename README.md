@@ -1,7 +1,14 @@
 # House IT Stuff
+
+## Setting Up
 automation to configure various IT related things in the house
 
+- make sure ansible (and python) is installed 
+- make sure `sshpass` is installed
+  - brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
 - set up the hosts file
+  - see below on how to prep the pi's SD card for first boot
+  - boot the pi
   - `cp hosts.example hosts`
   - locate the pi on the network using `bin/findhosts`
   - edit with the proper IP of the raspberry pi
@@ -10,9 +17,23 @@ automation to configure various IT related things in the house
   - `cp env_vars.example.yml env_vars.yml`
   - update the values
 
+## Running Things
+
 To run all of it
 ```
-ansible-playbook -i hosts rileypi.yml
+bin/playbook
+```
+
+To run tagged plays.
+for example, everything tagged with `restart` 
+```
+bin/playbook restart
+```
+
+To run tagged plays, but exclude some.
+For example configure/restart nodeRed, but skip installing it
+```
+bin/playbook nodered install
 ```
 
 ## Prepping new Raspbian SD card

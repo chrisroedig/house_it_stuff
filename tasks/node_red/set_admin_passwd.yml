@@ -1,6 +1,0 @@
-- name: 'install bcryptjs'
-  npm:
-    name: bcryptjs
-    global: yes
-    state: present
-  become: true

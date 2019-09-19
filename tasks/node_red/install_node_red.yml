@@ -20,5 +20,3 @@
     global: yes
     state: present
   become: true
-
-#install node-red-contrib-influxdb to /home/nodered/.node-red/node-modules
