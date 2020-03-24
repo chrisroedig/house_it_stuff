@@ -1,12 +1,7 @@
 ---
   # install the homebridge-mqtt package
   # update homebridge config JSON to add mqtt as a platform
-  - name: npm install homebridge-mqtt
-    npm:
-      name: homebridge-mqtt
-      global: yes
-    become: true
-  
+
   - name: copy the config update script
     copy:
       src: config_script.py

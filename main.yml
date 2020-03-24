@@ -17,10 +17,17 @@
       - include: tasks/homebridge_chamberlain/install.yml 
         tags: chamberlain
       - include: tasks/mqtt/install.yml 
+        tags: 
+          - mqtt
+          - install
+      - include: tasks/mqtt/configure.yml 
         tags: mqtt
-      - include: tasks/homebridge/restart.yml
+      - include: tasks/mqtt/restart.yml
         tags:
           - mqtt
+          - restart
+      - include: tasks/homebridge/restart.yml
+        tags:
           - homebridge
           - chamberlain
           - restart

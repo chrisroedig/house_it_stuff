@@ -24,14 +24,13 @@ def get_device_id(username, password):
             break
     return device_id
 
-def update_config(username, password, device_id, filename):
+def update_config(username, password, filename):
     config=json.loads(open(filename).read())
     acc_config = {
         'accessory': 'Chamberlain',
         'name': 'Garage Door',
         'username': username,
-        'password': password,
-        'deviceId': device_id
+        'password': password
     }
     updated = False
     for i, acc in enumerate(config['accessories']):
@@ -48,8 +47,5 @@ def update_config(username, password, device_id, filename):
 username="{{myq_username}}"
 password="{{myq_password}}"
 
-
-device_id = get_device_id(username, password)
-print('found device_id: '+str(device_id))
-update_config(username, password, device_id, 'config.json')
+update_config(username, password, 'config.json')
 print('successfully wrote config')

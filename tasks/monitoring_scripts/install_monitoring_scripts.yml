@@ -9,7 +9,7 @@
 
 - name: install dependencies
   pip:
-    name: [influxdb, pyyaml, requests]
+    name: [influxdb, pyyaml, requests, speedtest-cli]
 
 - name: Creates the config file
   template: src=config.yml.j2 dest=~/monitoring_scripts/config.yml

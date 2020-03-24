@@ -5,8 +5,3 @@
     name: ['mosquitto', 'mosquitto-clients']
     state: present
   become: true
-- name: Restart service mosquitto, in all cases
-  service:
-    name: mosquitto
-    state: restarted
-  become: true

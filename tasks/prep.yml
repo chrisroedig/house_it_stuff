@@ -1,10 +1,10 @@
 ---
 - name: 'rename the host'
   hostname:
-    name: rileypi.local
+    name: rileypi2.local
   become: true
 - name: 'install basic dependencies'
   apt:
-    name: ['avahi-daemon', 'vim', 'git', 'python-pip']
+    name: ['avahi-daemon','build-essential', 'vim', 'git', 'python-pip', 'nodejs', 'npm']
     state: present
   become: true

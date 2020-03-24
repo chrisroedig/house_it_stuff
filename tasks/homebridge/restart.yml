@@ -3,3 +3,8 @@
     name: homebridge
     state: restarted
   become: true
+- name: Enable service homebridge
+  systemd:
+    name: homebridge
+    enabled: true
+  become: true
