@@ -14,7 +14,7 @@
 
 - name: Ensure nodered owns it's node_modules
   file:
-    path: /home/nodered/.nodered
+    path: /home/nodered/.node-red
     state: directory
     recurse: yes
     owner: nodered

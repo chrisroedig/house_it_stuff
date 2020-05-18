@@ -12,10 +12,6 @@
   file:
     path: /home/nodered/.node-red
     state: directory
-    owner: nodered  
-
-# make sure current service file is used
-# sudo systemctl daemon-reload
-
-# enable nodered to start with system
-# sudo systemctl enable nodered.service
+    owner: nodered
+    group: nodered
+  become: true

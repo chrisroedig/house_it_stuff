@@ -1,0 +1,5 @@
+- name: monitoring-scripts > config file in docker volume
+
+- name: monitoring-scripts > stop service
+
+- name: monitoring-scripts > start service

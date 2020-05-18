@@ -1,0 +1,50 @@
+---
+
+# setup docker based service for monitoring scripts
+
+- name: monitoring-scripts > update repository code
+  git:
+    repo: "{{ monitoring_scripts_repo }}"
+    dest: ~/monitoring_scripts
+    force: yes
+
+- name: monitoring-scripts > config file
+  template: src=config.yml.j2 dest=~/monitoring_scripts/config.yml
+
+- name: monitoring-scripts > systemd service definition
+  template:
+    src: monitoring-scripts.service.j2
+    dest: /etc/systemd/system/monitoring-scripts.service
+    owner: root
+  become: true
+
+- name: monitoring-scripts > docker volume
+    docker_volume:
+      name: monitoring-scripts
+
+- name: monitoring-scripts > docker image
+  docker_image:
+    build:
+      path: ~/monitoring_scripts/
+    tag: monitoring-scripts
+
+- name: monitoring-scripts > stop service
+  systemd:
+    name: monitoring-scripts
+    state: stopped
+    daemon_reload: yes
+    enabled: yes
+  become: true
+
+- name: monitoring-scripts > remove old container
+  docker_container:
+    name: monitoring-scripts
+    state: absent
+
+- name: monitoring-scripts > start service
+  systemd:
+    name: monitoring-scripts
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  become: true

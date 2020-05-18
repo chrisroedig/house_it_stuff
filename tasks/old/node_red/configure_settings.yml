@@ -3,8 +3,7 @@
     name: bcryptjs
     state: present
     path: ~/
-  become: true
-
+  
 - name: 'hash the node-red admin password'
   shell: node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" {{node_red_password}}
   register: node_red_pw_hash
