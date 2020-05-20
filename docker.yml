@@ -1,5 +1,0 @@
----
-  - hosts: pi
-    vars_files:
-      - env_vars.yml
-    

@@ -6,7 +6,7 @@ Requires=docker.socket
 
 [Service]
 Restart=always
-ExecStartPre=/bin/bash -c "/usr/bin/docker container inspect monitoring-scripts 2> /dev/null || /usr/bin/docker run -d --name monitoring-scripts --privileged -v /var/run/docker.sock:/var/run/docker.sock -v monitoring-scripts:/data monitoring-scripts" --env CONFIG_FILE=/data/config.yml
+ExecStartPre=/bin/bash -c "/usr/bin/docker container inspect monitoring-scripts 2> /dev/null || /usr/bin/docker run -d --name monitoring-scripts --privileged -v /var/run/docker.sock:/var/run/docker.sock -v monitoring-scripts:/data monitoring-scripts"
 ExecStart=/usr/bin/docker start -a monitoring-scripts
 ExecStop=/usr/bin/docker stop -t 10 monitoring-scripts
 

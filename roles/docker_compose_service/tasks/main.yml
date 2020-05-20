@@ -1,0 +1,24 @@
+- name: Docker Compose Service File
+  template: 
+    src: docker-compose.service.j2
+    dest: /etc/systemd/system/docker-compose@.service
+  become: true
+
+- name: Docker Cleanup Service File
+  template:
+    src: docker-cleanup.service.j2
+    dest: /etc/systemd/system/docker-cleanup.service
+  become: true
+
+- name: Docker Cleanup Timer File
+  template:
+    src: docker-cleanup.timer.j2
+    dest: /etc/systemd/system/docker-cleanup.timer
+  become: true
+
+- name: Cleanup Timer Enabled
+  systemd:
+    name: docker-cleanup.timer
+    state: started
+    enabled: yes
+  become: true
