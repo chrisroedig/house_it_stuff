@@ -1,16 +1,20 @@
 ---
 # These variables are credentials or otherwise situational
+monitoring_scripts_repo: https://github.com/chrisroedig/monitoring_scripts.git
+
 influx_db_host: -
 influx_db_username: -
 influx_db_password: -
 
-homebridge_username: 0X:0X:0X:0X:0X:0X
-homebridge_pin: ###-###-##
+ambient_weather_api_key: -
+ambient_weather_application_key: -
+ambient_weather_mac_address: -
 
-myq_username: -
-myq_password: -
+ecobee_client_id: -
 
-node_red_username: -
-node_red_password: -
+enphase_enlighten_username: -
+enphase_enlighten_password: -
 
-node_red_flows_repo: 
+enphase_envoy_host_url: -
+
+mqtt_host: -
