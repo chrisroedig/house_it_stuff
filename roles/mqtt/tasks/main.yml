@@ -1,4 +1,4 @@
-- name: /etc/docker/compose
+- name: /etc/docker/compose/mosquitto
   file:
     path: /etc/docker/compose/mosquitto
     state: directory

@@ -11,3 +11,4 @@
     - docker_compose_service
     - mqtt
     - data_monitor
+    - homebridge

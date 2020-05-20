@@ -7,24 +7,24 @@
     repo: "{{ monitoring_scripts_repo }}"
     dest: /etc/docker/compose/data-monitor
     force: yes
-  become: root
+  become: true
 
 - name: copy config file 
   template: 
-    src: config.yml.j2 
+    src: "{{ config_files_path }}/data_monitor_config.yml"
     dest: /etc/docker/compose/data-monitor/config.yml
-  become: root
+  become: true
 
 - name: copy docker compose file
   template: 
     src: docker-compose.yml.j2 
     dest: /etc/docker/compose/data-monitor/docker-compose.yml
-  become: root
+  become: true
 
-- name: service data-monitor started
+- name: service data-monitor restarted
   systemd:
     name: docker-compose@data-monitor
-    state: started
+    state: restarted
     daemon_reload: yes
     enabled: yes
   become: true

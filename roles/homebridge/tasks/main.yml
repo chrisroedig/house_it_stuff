@@ -1,0 +1,33 @@
+- name: /etc/docker/compose/homebridge
+  file:
+    path: /etc/docker/compose/homebridge
+    state: directory
+    owner: root
+    group: root
+  become: true
+
+- name: docker compose file for homebridge
+  template:
+    src: docker-compose.yml
+    dest: /etc/docker/compose/homebridge/docker-compose.yml
+  become: true
+
+- name: docker-compose@homebridge.service started
+  systemd:
+    name: docker-compose@homebridge
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  become: true
+
+- name: update package.json
+  template:
+    src: "{{ config_files_path }}/homebridge_package.json"
+    dest: /var/lib/docker/volumes/homebridge/_data/package.json
+  become: true
+
+- name: docker-compose@homebridge.service restarted
+  systemd:
+    name: docker-compose@homebridge
+    state: restarted
+  become: true

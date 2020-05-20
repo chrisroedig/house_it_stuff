@@ -1,20 +1,8 @@
 ---
 # These variables are credentials or otherwise situational
+
+# repo url for the code used by the datat-monitor container
 monitoring_scripts_repo: https://github.com/chrisroedig/monitoring_scripts.git
 
-influx_db_host: -
-influx_db_username: -
-influx_db_password: -
-
-ambient_weather_api_key: -
-ambient_weather_application_key: -
-ambient_weather_mac_address: -
-
-ecobee_client_id: -
-
-enphase_enlighten_username: -
-enphase_enlighten_password: -
-
-enphase_envoy_host_url: -
-
-mqtt_host: -
+# local path to config files
+config_files_path: ~/Code/house_it_configs
