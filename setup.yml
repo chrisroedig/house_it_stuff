@@ -10,3 +10,4 @@
     - geerlingguy.docker_arm
     - docker_compose_service
     - mqtt
+    - data_monitor

@@ -1,0 +1,59 @@
+ambient_weather:
+  api_key: {{ambient_weather_api_key}}
+  application_key: {{ambient_weather_application_key}}
+  influx_database: weather
+  location_tag: 395_riley
+  mac_address: {{ambient_weather_mac_address}}
+ecobee:
+  client_id: {{ecobee_client_id}}
+  session_file: /data/ecobee_session.p
+  influx_database: hvac
+  influx_measurement: null
+  location_tag: 395_riley
+enphase_enlighten:
+  config_file: /data/enphase_config.p
+  influx_database: energy
+  influx_measurement: enphase_enlighten
+  password: {{enphase_enlighten_password}}
+  session_file: /data/enphase_session.p
+  username: {{enphase_enlighten_username}}
+enphase_envoy:
+  host_url: {{enphase_envoy_host_url}}
+  influx_database: energy
+  influx_measurement: iq_envoy_power
+influxdb:
+  database: default
+  host_url: {{influx_db_host}}
+  password: {{influx_db_password}}
+  port: 8086
+  username: {{influx_db_username}}
+mqtt:
+  host: {{mqtt_host}}
+  port: 1883
+  root_topic: data_monitor
+schedule:
+  sources:
+    ambient_weather:
+      minutes: 5
+      receivers:
+      - mqtt
+      - influx
+    ecobee:
+      minutes: 3
+      receivers:
+      - mqtt
+      - influx
+    enphase_enlighten:
+      minutes: 10
+      receivers:
+      - mqtt
+      - influx
+    enphase_envoy:
+      minutes: 1
+      receivers:
+      - mqtt
+      - influx
+  tasks:
+    ecobee:
+      minutes: 30
+      task: reauthorize

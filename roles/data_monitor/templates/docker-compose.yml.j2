@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  data_monitor:
+    build: .
+    restart: always
+    volumes:
+      - monitoring-scripts:/data

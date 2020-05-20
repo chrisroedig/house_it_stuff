@@ -1,0 +1,30 @@
+- name: monitoring-scripts > docker volume
+  docker_volume:
+    name: monitoring-scripts
+
+- name: copy repo code to /etc/docker/compose/data-monitor
+  git:
+    repo: "{{ monitoring_scripts_repo }}"
+    dest: /etc/docker/compose/data-monitor
+    force: yes
+  become: root
+
+- name: copy config file 
+  template: 
+    src: config.yml.j2 
+    dest: /etc/docker/compose/data-monitor/config.yml
+  become: root
+
+- name: copy docker compose file
+  template: 
+    src: docker-compose.yml.j2 
+    dest: /etc/docker/compose/data-monitor/docker-compose.yml
+  become: root
+
+- name: service data-monitor started
+  systemd:
+    name: docker-compose@data-monitor
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  become: true
