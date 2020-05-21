@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=America/New_York
+    ports:
+      - target: 1880
+        published: 1881
+    networks:
+      - node-red-net
+    volumes:
+      - node-red:/data
+
+volumes:
+  node-red:
+    name: 'node-red'
+
+networks:
+  node-red-net:

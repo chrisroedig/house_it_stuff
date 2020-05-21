@@ -1,0 +1,27 @@
+- name: /etc/docker/compose/node-red
+  file:
+    path: /etc/docker/compose/node-red
+    state: directory
+    owner: root
+    group: root
+  become: true
+
+- name: docker compose file for node-red
+  template:
+    src: docker-compose.yml
+    dest: /etc/docker/compose/node-red/docker-compose.yml
+  become: true
+
+- name: docker-compose@node-red.service started
+  systemd:
+    name: docker-compose@node-red
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  become: true
+
+- name : copy settings
+  template:
+    src: "{{ config_files_path }}/node-red-settings.js"
+    dest: /var/lib/docker/volumes/node-red/_data/settings.js
+  become: true

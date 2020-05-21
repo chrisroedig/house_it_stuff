@@ -12,3 +12,4 @@
     - mqtt
     - data_monitor
     - homebridge
+    - node_red
