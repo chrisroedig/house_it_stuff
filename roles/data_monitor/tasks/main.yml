@@ -9,9 +9,9 @@
     force: yes
   become: true
 
-- name: copy config file 
+- name: copy empty config file for first build
   template: 
-    src: "{{ config_files_path }}/data_monitor_config.yml"
+    src: "default_config.yml"
     dest: /etc/docker/compose/data-monitor/config.yml
   become: true
 
@@ -28,3 +28,6 @@
     daemon_reload: yes
     enabled: yes
   become: true
+
+- include: update_config.yml
+  when: update_config_files

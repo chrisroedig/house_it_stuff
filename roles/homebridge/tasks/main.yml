@@ -20,14 +20,5 @@
     enabled: yes
   become: true
 
-- name: update package.json
-  template:
-    src: "{{ config_files_path }}/homebridge_package.json"
-    dest: /var/lib/docker/volumes/homebridge/_data/package.json
-  become: true
-
-- name: docker-compose@homebridge.service restarted
-  systemd:
-    name: docker-compose@homebridge
-    state: restarted
-  become: true
+- include: update_config.yml
+  when: update_config_files

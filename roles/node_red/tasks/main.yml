@@ -20,8 +20,5 @@
     enabled: yes
   become: true
 
-- name : copy settings
-  template:
-    src: "{{ config_files_path }}/node-red-settings.js"
-    dest: /var/lib/docker/volumes/node-red/_data/settings.js
-  become: true
+- include: update_config.yml
+  when: update_config_files

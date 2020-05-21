@@ -1,0 +1,17 @@
+- name: copy package.json
+  template:
+    src: "{{ config_files_path }}/homebridge_package.json"
+    dest: /var/lib/docker/volumes/homebridge/_data/package.json
+  become: true
+
+- name: copy config.json
+  template:
+    src: "{{ config_files_path }}/homebridge_config.json"
+    dest: /var/lib/docker/volumes/homebridge/_data/config.json
+  become: true
+
+- name: docker-compose@homebridge.service restarted
+  systemd:
+    name: docker-compose@homebridge
+    state: restarted
+  become: true
