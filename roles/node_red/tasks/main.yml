@@ -12,10 +12,10 @@
     dest: /etc/docker/compose/node-red/docker-compose.yml
   become: true
 
-- name: docker-compose@node-red.service started
+- name: docker-compose@node-red.service restarted
   systemd:
     name: docker-compose@node-red
-    state: started
+    state: restarted
     daemon_reload: yes
     enabled: yes
   become: true

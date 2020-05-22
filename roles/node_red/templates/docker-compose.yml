@@ -7,7 +7,7 @@ services:
       - TZ=America/New_York
     ports:
       - target: 1880
-        published: 1881
+        published: 1880
     networks:
       - node-red-net
     volumes:

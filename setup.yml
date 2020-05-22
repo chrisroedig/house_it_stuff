@@ -6,6 +6,7 @@
     pip_install_packages:
       - name: docker
   roles:
+    - common
     - geerlingguy.pip
     - geerlingguy.docker_arm
     - docker_compose_service

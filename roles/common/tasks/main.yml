@@ -1,0 +1,7 @@
+- name: apt avahi-daemon avahi-discover libnss-mdns
+  apt:
+    pkg:
+      - 'avahi-daemon'
+      - 'avahi-discover'
+      - 'libnss-mdns'
+  become: true
