@@ -5,11 +5,7 @@ services:
     image: nodered/node-red:latest
     environment:
       - TZ=America/New_York
-    ports:
-      - target: 1880
-        published: 1880
-    networks:
-      - node-red-net
+    network_mode: host
     volumes:
       - node-red:/data
 
