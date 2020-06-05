@@ -1,0 +1,7 @@
+- name: restart data-monitor 
+  systemd:
+    name: docker-compose@data-monitor
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: true

@@ -3,11 +3,5 @@
     src: "{{ config_files_path }}/data_monitor_config.yml"
     dest: /var/lib/docker/volumes/data-monitor/_data/config.yml
   become: true
-
-- name: service data-monitor restarted
-  systemd:
-    name: docker-compose@data-monitor
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
-  become: true
+  notify:
+     - restart data-monitor

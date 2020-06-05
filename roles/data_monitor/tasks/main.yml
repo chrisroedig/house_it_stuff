@@ -1,33 +1,8 @@
-- name: monitoring-scripts > docker volume
-  docker_volume:
-    name: monitoring-scripts
-
-- name: copy repo code to /etc/docker/compose/data-monitor
-  git:
-    repo: "{{ monitoring_scripts_repo }}"
-    dest: /etc/docker/compose/data-monitor
-    force: yes
-  become: true
-
-- name: copy empty config file for first build
-  template: 
-    src: "default_config.yml"
-    dest: /etc/docker/compose/data-monitor/config.yml
-  become: true
-
-- name: copy docker compose file
-  template: 
-    src: docker-compose.yml.j2 
-    dest: /etc/docker/compose/data-monitor/docker-compose.yml
-  become: true
-
-- name: service data-monitor restarted
-  systemd:
-    name: docker-compose@data-monitor
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
-  become: true
+- include: install.yml
+  when: action == 'install'
 
 - include: update_config.yml
-  when: update_config_files
+  when: action == 'deploy' or action == 'install'
+
+- include: update_code.yml
+  when: action == 'deploy' or action == 'install'

@@ -1,0 +1,20 @@
+- name: monitoring-scripts > docker volume
+  docker_volume:
+    name: monitoring-scripts
+
+- name: copy empty config file for first build
+  template: 
+    src: "default_config.yml"
+    dest: /etc/docker/compose/data-monitor/config.yml
+  become: true
+
+- name: copy docker compose file
+  template: 
+    src: docker-compose.yml.j2 
+    dest: /etc/docker/compose/data-monitor/docker-compose.yml
+  become: true
+  notify:
+    - restart data-monitor
+
+- include: update_config.yml
+- include: update_code.yml

@@ -1,0 +1,15 @@
+- name: copy repo code to /etc/docker/compose/data-monitor
+  git:
+    repo: "{{ monitoring_scripts_repo }}"
+    dest: /etc/docker/compose/data-monitor
+    force: yes
+  become: true
+  
+
+- name: remove outdated docker image
+  docker_image:
+    name: data-monitor_scripts
+    state: absent
+    force_absent: yes
+  notify:
+     - restart data-monitor

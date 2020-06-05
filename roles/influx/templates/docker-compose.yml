@@ -14,14 +14,14 @@ services:
   #     - "8125:8125/udp"
   # Define an InfluxDB service
   influxdb:
-    image: influxdb:1.3.5
+    image: influxdb:latest
     volumes:
       - influxdb:/var/lib/influxdb
     ports:
       - "8086:8086"
   # Define a Chronograf service
   chronograf:
-    image: chronograf:1.3.8
+    image: chronograf:latest
     environment:
       INFLUXDB_URL: http://influxdb:8086
       KAPACITOR_URL: http://kapacitor:9092
@@ -32,7 +32,7 @@ services:
       - kapacitor
   # Define a Kapacitor service
   kapacitor:
-    image: kapacitor:1.3.3
+    image: kapacitor:latest
     environment:
       KAPACITOR_HOSTNAME: kapacitor
       KAPACITOR_INFLUXDB_0_URLS_0: http://influxdb:8086
@@ -43,7 +43,7 @@ services:
   # Define a service for using the influx CLI tool.
   # docker-compose run influxdb-cli
   influxdb-cli:
-    image: influxdb:1.3.5
+    image: influxdb:latest
     entrypoint:
       - influx
       - -host
@@ -53,7 +53,7 @@ services:
   # Define a service for using the kapacitor CLI tool.
   # docker-compose run kapacitor-cli
   kapacitor-cli:
-    image: kapacitor:1.3.3
+    image: kapacitor:latest
     entrypoint: bash
     environment:
       KAPACITOR_URL: http://kapacitor:9092
