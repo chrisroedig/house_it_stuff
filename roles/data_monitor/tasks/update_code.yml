@@ -4,12 +4,6 @@
     dest: /etc/docker/compose/data-monitor
     force: yes
   become: true
-  
-
-- name: remove outdated docker image
-  docker_image:
-    name: data-monitor_scripts
-    state: absent
-    force_absent: yes
-  notify:
-     - restart data-monitor
+  notify: 
+    - remove data-monitor image
+    - restart data-monitor

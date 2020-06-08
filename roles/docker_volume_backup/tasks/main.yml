@@ -1,0 +1,32 @@
+- name: docker volume backup script
+  template: 
+    src: docker-volume-backup.sh.j2
+    dest: /usr/local/sbin/docker-volume-backup.sh
+  become: true
+
+- name: make docker volume backup script executable
+  file: 
+    path: /usr/local/sbin/docker-volume-backup.sh
+    mode: +x
+  become: true
+
+- name: Docker Volume Backup Service File
+  template:
+    src: docker-volume-backup.service
+    dest: /etc/systemd/system/docker-volume-backup.service
+  become: true
+
+- name: Docker Volume Backup Timer File
+  template:
+    src: docker-volume-backup.timer
+    dest: /etc/systemd/system/docker-volume-backup.timer
+  become: true
+
+- name: Docker Volume Backup Timer Enabled and Started
+  systemd:
+    name: docker-volume-backup.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: true
+  

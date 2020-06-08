@@ -1,0 +1,14 @@
+- name: /etc/docker/compose/influx
+  file:
+    path: /etc/docker/compose/influx
+    state: directory
+    owner: root
+    group: root
+  become: true
+
+- name: docker compose file for influx
+  template:
+    src: docker-compose.yml
+    dest: /etc/docker/compose/influx/docker-compose.yml
+  become: true
+  notify: restart influx

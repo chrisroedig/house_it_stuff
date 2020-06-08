@@ -11,8 +11,9 @@
     - geerlingguy.docker_arm
     - docker_compose_service
     - mqtt
-    - data_monitor
+    - { role: data_monitor, action: install }
     - homebridge
     - node_red
     - pihole
-    - influx
+    - { role: influx, action: install }
+    - docker_volume_backup

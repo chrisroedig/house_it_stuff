@@ -5,3 +5,11 @@
     daemon_reload: yes
     enabled: yes
   become: true
+
+- name: remove data-monitor image
+  docker_image:
+    name: data-monitor_scripts
+    state: absent
+    force_absent: yes
+  notify:
+     - restart data-monitor
