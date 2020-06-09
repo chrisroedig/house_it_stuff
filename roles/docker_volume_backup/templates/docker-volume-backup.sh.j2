@@ -5,6 +5,7 @@ mkdir /tmp/backups
 tar -cvzf /tmp/backups/grafana_data.gz /var/lib/docker/volumes/influx_grafana/_data
 tar -cvzf /tmp/backups/nodered_data.gz /var/lib/docker/volumes/node-red/_data
 tar -cvzf /tmp/backups/homebridge_data.gz /var/lib/docker/volumes/homebridge/_data
+tar -cvzf /tmp/backups/kapacitor_data.gz /var/lib/docker/volumes/kapacitor/_data
 
 docker exec -ti influx_influxdb_1 bash -c 'influxd backup -portable /var/lib/influxdb/backup'
 tar -cvzf /tmp/backups/influxdb_backup.gz /var/lib/docker/volumes/influx_influxdb/_data/backup

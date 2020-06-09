@@ -40,6 +40,8 @@ services:
       - influxdb
     ports:
       - "9092:9092"
+    volumes:
+      - kapacitor:/var/lib/kapacitor
   # Define a service for using the influx CLI tool.
   # docker-compose run influxdb-cli
   influxdb-cli:
@@ -75,3 +77,4 @@ services:
 volumes:
   influxdb:
   grafana:
+  kapacitor:
