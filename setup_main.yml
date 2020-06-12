@@ -1,4 +1,4 @@
-- hosts: pi
+- hosts: main
   vars_files:
     - env_vars.yml
   vars:
