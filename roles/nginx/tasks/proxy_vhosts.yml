@@ -1,0 +1,18 @@
+- name: Site file internal vhost proxies
+  template:
+    src: internal_vhosts.yml.j2
+    dest: /etc/nginx/sites-available/proxy_vhosts
+  become: true
+  notify: 
+    - restart nginx
+
+- name: Symlink the site file
+  file:
+    src: /etc/nginx/sites-available/proxy_vhosts
+    dest: /etc/nginx/sites-enabled/proxy_vhosts
+    owner: root
+    group: root
+    state: link
+  become: true
+  notify: 
+    - restart nginx

@@ -1,0 +1,8 @@
+- name: apt nginx
+  apt:
+    pkg:
+      - 'nginx'
+  become: true
+
+- include: proxy_vhosts.yml
+  when: config == 'proxy_vhosts'

@@ -4,25 +4,26 @@
       - 'avahi-daemon'
       - 'avahi-discover'
       - 'libnss-mdns'
+      - 'vim'
       - 'awscli'
   become: true
 
-- name: aws config dir for root
-  file:
-    path: /root/.aws
-    state: directory
-    owner: root
-    group: root
-  become: true
+# - name: aws config dir for root
+#   file:
+#     path: /root/.aws
+#     state: directory
+#     owner: root
+#     group: root
+#   become: true
 
-- name: aws config for s3 backups
-  template: 
-    src: aws_config.j2
-    dest: /root/.aws/config  
-  become: true
+# - name: aws config for s3 backups
+#   template: 
+#     src: aws_config.j2
+#     dest: /root/.aws/config  
+#   become: true
 
-- name: aws credentials for s3 backups
-  template: 
-    src: aws_credentials.j2
-    dest: /root/.aws/credentials  
-  become: true
+# - name: aws credentials for s3 backups
+#   template: 
+#     src: aws_credentials.j2
+#     dest: /root/.aws/credentials  
+#   become: true

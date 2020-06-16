@@ -3,5 +3,7 @@
     - env_vars.yml
   vars:
     pip_package: python3-pip
+    
   roles:
-    - { role: nginx, config: dmz_vhosts }
+    - common
+    - { role: nginx, config: proxy_vhosts }
