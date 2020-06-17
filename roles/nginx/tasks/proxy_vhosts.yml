@@ -1,6 +1,6 @@
-- name: Site file internal vhost proxies
+- name: Site file for vhost proxies
   template:
-    src: internal_vhosts.yml.j2
+    src: proxy_vhosts.yml.j2
     dest: /etc/nginx/sites-available/proxy_vhosts
   become: true
   notify: 

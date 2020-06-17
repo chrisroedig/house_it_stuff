@@ -1,5 +1,6 @@
 server_names_hash_bucket_size  64;
-{% for host_pair in internal_vhost_map %}
+
+{% for host_pair in proxy_vhost_map %}
 server {
     listen 80;
     server_name {{ host_pair[0] }};

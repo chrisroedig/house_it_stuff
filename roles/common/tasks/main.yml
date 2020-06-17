@@ -5,6 +5,7 @@
       - 'avahi-discover'
       - 'libnss-mdns'
       - 'vim'
+      - 'denyhosts'
       - 'awscli'
   become: true
 
