@@ -1,12 +1,32 @@
 server_names_hash_bucket_size  64;
 
-{% for host_pair in proxy_vhost_map %}
+{% for host in internal_proxy_vhosts %}
 server {
     listen 80;
-    server_name {{ host_pair[0] }};
+    server_name {{ host['server_name'] }};
+
+    allow  {{internal_addr_pool}};
+    deny all;
 
     location / {
-        proxy_pass {{ host_pair[1] }};
+        proxy_pass {{ host['url'] }};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+{% endfor %}
+
+{% for host in external_proxy_vhosts %}
+server {
+    listen 80;
+    server_name {{ host['server_name'] }};
+
+    location / {
+        proxy_pass {{ host['url'] }};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
