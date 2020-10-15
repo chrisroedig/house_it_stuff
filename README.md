@@ -1,7 +1,23 @@
 # House IT Stuff
 
+Automation to configure various IT related things in the house
+
+## Architecture
+
+- Main host
+  - services via docker-compose and systemd
+  - pihole - DNS server with ad/tracking prevention
+  - mosquitto - mqtt broker (useful for home automaton
+  - node-red - flow based programming environment for automation
+  - homebridge - service to emulate Apple HomeKit accessories
+  - data monitor - various scheduled scripts to gather, record and broadcast data from APIs
+  - TICK stack - timeseries database an monitoring
+  - Grafana - data visualization, dashboards alerting
+
+- DMZ host
+  - nginx for reverse proxy to internal web services
+
 ## Setting Up
-automation to configure various IT related things in the house
 
 - make sure ansible (and python) is installed 
 - make sure `sshpass` is installed
@@ -9,31 +25,23 @@ automation to configure various IT related things in the house
 - set up the hosts file
   - see below on how to prep the pi's SD card for first boot
   - boot the pi
-  - `cp hosts.example hosts`
+  - `cp hosts.yml.example hosts.yml`
   - locate the pi on the network using `bin/findhosts`
-  - edit with the proper IP of the raspberry pi
+  - edit `hosts.yml` with the proper IP, username/password for the raspberry pi
 
-- set up the env vars
-  - `cp env_vars.example.yml env_vars.yml`
-  - update the values
+- make the right config files are present (not in this repo)
+
 
 ## Running Things
 
-To run all of it
+Setting up the main host for internal services
 ```
-bin/playbook
-```
-
-To run tagged plays.
-for example, everything tagged with `restart` 
-```
-bin/playbook restart
+playbook main.yml -i hosts.yml
 ```
 
-To run tagged plays, but exclude some.
-For example configure/restart nodeRed, but skip installing it
+Setting up the dmz host to proxy web services
 ```
-bin/playbook nodered install
+playbook dmz.yml -i hosts.yml
 ```
 
 ## Prepping new Raspbian SD card
