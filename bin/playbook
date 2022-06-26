@@ -1,7 +1,0 @@
-if [ $2 ]; then
-    ansible-playbook main.yml --tags=$1 --skip-tags=$2 -i hosts
-elif [ $1 ]; then
-    ansible-playbook main.yml --tags=$1 -i hosts
-else
-    ansible-playbook main.yml -i hosts
-fi

@@ -1,0 +1,52 @@
+---
+- name: Create mosquitto folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/mosquitto"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Create mosquitto log folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/mosquitto/mosquitto/log"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Create mosquitto config folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/mosquitto/mosquitto/config"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Create mosquitto data folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/mosquitto/mosquitto/data"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy mosquitto config to Pi.
+  ansible.builtin.template:
+    src: "{{ config_files_path }}/mosquitto.conf"
+    dest: "{{ config_dir }}/mosquitto/mosquitto/config/mosquitto.conf"
+  become: false
+  notify: Restart mosquitto
+
+- name: Copy mosquitto docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/mosquitto-docker-compose.yml.j2
+    dest: "{{ config_dir }}/mosquitto/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart mosquitto
+
+
+# TODO: The first time this playbook is run, the `pi` user may not be added
+# to the `docker` group, so this task may fail.
+- name: Ensure mosquitto is running.
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/mosquitto/"
+    build: false
+  become: false

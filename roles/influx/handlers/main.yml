@@ -1,7 +1,0 @@
-- name: restart influx
-  systemd:
-    name: docker-compose@influx
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
-  become: true

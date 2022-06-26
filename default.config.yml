@@ -1,0 +1,24 @@
+---
+# These variables are credentials or otherwise situational
+
+# repo url for the code used by the datat-monitor container
+monitoring_scripts_repo: https://github.com/chrisroedig/monitoring_scripts.git
+
+# local path to config files
+config_files_path: ~/Code/house_it_configs
+
+# Location where configuration files will be stored.
+config_dir: '~'
+
+# Pi-hole configuration.
+pihole_enable: true
+pihole_hostname: pihole
+pihole_timezone: America/Chicago
+pihole_password: "change-this-password"
+
+# Influx Config
+influx_username: influx 
+influx_password: "change-this-password"
+influx_org: influx
+influx_bucket: influx
+influx_token: "fill this in after setting up influx"

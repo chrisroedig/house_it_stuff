@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+---
+version: "3"
+services:
+  scripts:
+    build: .
+    restart: always
+    environment:
+      CONFIG_FILE: '/data/config.yml'
+      LOG_FILE: '/data/data-monitorlog'
+    volumes:
+      - ./data:/data

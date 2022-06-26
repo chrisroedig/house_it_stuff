@@ -1,0 +1,64 @@
+---
+- name: Restart pi-hole
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/pi-hole/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart mosquitto
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/mosquitto/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart tick-stack
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/tick-stack/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart grafana
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/grafana/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart node-red
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/node-red/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart homebridge
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/homebridge/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart home-assistant
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/home-assistant/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart data-monitor
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/data-monitor/"
+    build: true # make sure it picks up new source code
+    restarted: true
+  become: false
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: true

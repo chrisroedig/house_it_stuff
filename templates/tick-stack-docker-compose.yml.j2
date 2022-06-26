@@ -1,0 +1,47 @@
+# {{ ansible_managed }}
+---
+version: "3"
+services:
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      - './influx-influxdb:/var/lib/influxdb'
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: 'setup'
+      DOCKER_INFLUXDB_INIT_USERNAME: '{{influx_username}}'
+      DOCKER_INFLUXDB_INIT_PASSWORD: '{{influx_password}}'
+      DOCKER_INFLUXDB_INIT_ORG: '{{influx_org}}'
+      DOCKER_INFLUXDB_INIT_BUCKET: '{{influx_bucket}}'
+  chronograf:
+    image: chronograf:latest
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+      KAPACITOR_URL: http://kapacitor:9092
+    ports:
+      - "8888:8888"
+    links:
+      - influxdb
+      - kapacitor
+  kapacitor:
+    image: kapacitor:latest
+    environment:
+      KAPACITOR_HOSTNAME: kapacitor
+      KAPACITOR_INFLUXDB_0_URLS_0: http://influxdb:8086
+    links:
+      - influxdb
+    ports:
+      - "9092:9092"
+    volumes:
+      - './influx-kapacitor:/var/lib/kapacitor'
+  # Define a service for using the influx CLI tool.
+  # docker-compose run influxdb-cli
+  influxdb-cli:
+    image: influxdb:latest
+    entrypoint:
+      - influx
+      - -host
+      - influxdb
+    links:
+      - influxdb

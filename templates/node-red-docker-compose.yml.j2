@@ -1,0 +1,16 @@
+
+# {{ ansible_managed }}
+---
+version: "3"
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=America/New_York
+    network_mode: host
+    volumes:
+      - './node-red-data:/data'
+
+networks:
+  node-red-net:

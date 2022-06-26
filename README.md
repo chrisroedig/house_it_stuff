@@ -21,14 +21,14 @@ Automation to configure various IT related things in the house
 
 - make sure ansible (and python) is installed 
 - make sure `sshpass` is installed
-  - brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+  - `brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb`
 - set up the hosts file
   - see below on how to prep the pi's SD card for first boot
   - boot the pi
   - `cp hosts.yml.example hosts.yml`
   - locate the pi on the network using `bin/findhosts`
   - edit `hosts.yml` with the proper IP, username/password for the raspberry pi
-
+- install roles from ansible-galaxy `ansible-galaxy install -r requirements.yml`
 - make the right config files are present (not in this repo)
 
 

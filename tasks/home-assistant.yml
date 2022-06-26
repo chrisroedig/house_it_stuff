@@ -1,0 +1,22 @@
+---
+- name: Create home-assistant folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/home-assistant"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Create home-assistant config folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/home-assistant/config/"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy home-assistant docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/home-assistant-docker-compose.yml.j2
+    dest: "{{ config_dir }}/home-assistant/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart home-assistant

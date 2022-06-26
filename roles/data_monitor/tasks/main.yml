@@ -1,8 +1,0 @@
-- include: install.yml
-  when: action == 'install'
-
-- include: update_config.yml
-  when: action == 'deploy' or action == 'install'
-
-- include: update_code.yml
-  when: action == 'deploy' or action == 'install'

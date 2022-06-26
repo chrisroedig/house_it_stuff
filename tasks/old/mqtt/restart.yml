@@ -1,9 +1,0 @@
-- name: Restart service mosquitto, in all cases
-  service:
-    name: mosquitto
-    state: restarted
-  become: true
-- name: Enable service mosquitto
-  systemd:
-    name: mosquitto
-    enabled: true

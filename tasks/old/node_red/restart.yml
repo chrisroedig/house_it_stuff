@@ -1,7 +1,0 @@
-- name: Restart service node-red, in all cases
-  systemd:
-    name: node-red
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
-  become: true

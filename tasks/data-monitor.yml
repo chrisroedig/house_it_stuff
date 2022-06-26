@@ -1,0 +1,43 @@
+---
+- name: checkout data-monitor repo code
+  git:
+    repo: "{{ monitoring_scripts_repo }}"
+    dest: "{{ config_dir }}/data-monitor"
+    force: yes
+  become: false
+  notify:
+    - Restart data-monitor
+
+- name: Create data-monitor data folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/data-monitor/data"
+    state: directory
+    mode: 0755
+  become: false
+  notify:
+    - Restart data-monitor
+
+- name: Copy Pi-hole docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/data-monitor-docker-compose.yml.j2
+    dest: "{{ config_dir }}/data-monitor/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify:
+    - Restart data-monitor
+
+- name: write the data-monitor Configuration
+  ansible.builtin.template:
+    src: "{{ config_files_path }}/data_monitor_config.yml.j2"
+    dest: "{{ config_dir }}/data-monitor/data/config.yml"
+  become: false
+  notify:
+    - Restart data-monitor
+
+
+# TODO: The first time this playbook is run, the `pi` user may not be added
+# to the `docker` group, so this task may fail.
+- name: Ensure data-monitor is running.
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/data-monitor/"
+  become: false

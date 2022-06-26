@@ -7,8 +7,8 @@
       - name: docker
   roles:
     - common
-    - geerlingguy.pip
-    - geerlingguy.docker_arm
+    - role: geerlingguy.pip
+    - role: geerlingguy.docker_arm
     - docker_compose_service
     - mqtt
     - { role: data_monitor, action: install }

@@ -1,8 +1,0 @@
----
-  # setup an mqtt broker, configure the homebridge mqtt plugin
-  - include: install_mosquitto.yml
-  - name: npm install homebridge-mqtt
-    npm:
-      name: homebridge-mqtt
-      global: yes
-    become: true

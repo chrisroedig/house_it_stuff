@@ -1,0 +1,49 @@
+---
+- name: Create homebridge folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/homebridge"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Create homebridge config folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/homebridge/homebridge-homebridge/"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy homebridge docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/homebridge-docker-compose.yml.j2
+    dest: "{{ config_dir }}/homebridge/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart homebridge
+
+- name: Update Homebridge Package
+  template:
+    src: "{{ config_files_path }}/homebridge_package.json"
+    dest: "{{ config_dir }}/homebridge/homebridge-homebridge/package.json"
+  become: false
+  notify: Restart homebridge
+
+- name: Update Homebridge Configuration
+  template:
+    src: "{{ config_files_path }}/homebridge_config.json"
+    dest: "{{ config_dir }}/homebridge/homebridge-homebridge/config.json"
+  become: false
+  notify: Restart homebridge
+
+- name: Trigger Homebridge restart
+  meta: flush_handlers
+
+# TODO: The first time this playbook is run, the `pi` user may not be added
+# to the `docker` group, so this task may fail.
+- name: Ensure homebridge is running.
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/homebridge/"
+    build: false
+  become: false
+
+

@@ -1,4 +1,4 @@
-env_vars.yml
+config.yml
 hosts
 hosts.yml
 *.retry
