@@ -6,8 +6,10 @@ services:
     image: influxdb:latest
     volumes:
       - './influx-influxdb:/var/lib/influxdb'
+      - './influx-influxdb2:/var/lib/influxdb2'
     ports:
       - "8086:8086"
+    restart: unless-stopped
     environment:
       DOCKER_INFLUXDB_INIT_MODE: 'setup'
       DOCKER_INFLUXDB_INIT_USERNAME: '{{influx_username}}'
@@ -19,6 +21,7 @@ services:
     environment:
       INFLUXDB_URL: http://influxdb:8086
       KAPACITOR_URL: http://kapacitor:9092
+    restart: unless-stopped
     ports:
       - "8888:8888"
     links:
@@ -29,6 +32,7 @@ services:
     environment:
       KAPACITOR_HOSTNAME: kapacitor
       KAPACITOR_INFLUXDB_0_URLS_0: http://influxdb:8086
+    restart: unless-stopped
     links:
       - influxdb
     ports:

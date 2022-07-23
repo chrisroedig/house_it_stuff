@@ -9,6 +9,7 @@ services:
     environment:
       - TZ=America/New_York
     network_mode: host
+    restart: unless-stopped
     volumes:
       - './node-red-data:/data'
 

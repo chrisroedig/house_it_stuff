@@ -45,11 +45,14 @@
     - name: Set up Homebridge
       ansible.builtin.import_tasks: tasks/homebridge.yml
     
-    - name: Set up Home Home Assistant
-      ansible.builtin.import_tasks: tasks/home-assistant.yml
+    # - name: Set up Home Home Assistant
+    #   ansible.builtin.import_tasks: tasks/home-assistant.yml
     
     - name: Set up data-monitor
       ansible.builtin.import_tasks: tasks/data-monitor.yml
+
+    - name: Set up Cloudflare
+      ansible.builtin.import_tasks: tasks/cloudflare-tunnel.yml
 
 - hosts: dmz
   become: true

@@ -17,7 +17,7 @@
   notify:
     - Restart data-monitor
 
-- name: Copy Pi-hole docker-compose template to Pi.
+- name: Copy mb8600-monitor docker-compose template to Pi.
   ansible.builtin.template:
     src: templates/data-monitor-docker-compose.yml.j2
     dest: "{{ config_dir }}/data-monitor/docker-compose.yml"

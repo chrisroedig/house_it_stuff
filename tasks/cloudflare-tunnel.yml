@@ -1,0 +1,23 @@
+---
+- name: Create cloudflare-tunnel folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/cloudflare-tunnel"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy cloudflare-tunnel docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/cloudflare-tunnel-docker-compose.yml.j2
+    dest: "{{ config_dir }}/cloudflare-tunnel/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart cloudflare-tunnel
+
+# TODO: The first time this playbook is run, the `pi` user may not be added
+# to the `docker` group, so this task may fail.
+- name: Ensure cloudflare-tunnel is running.
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/cloudflare-tunnel/"
+    build: false
+  become: false

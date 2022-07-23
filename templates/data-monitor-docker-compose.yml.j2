@@ -4,7 +4,7 @@ version: "3"
 services:
   scripts:
     build: .
-    restart: always
+    restart: unless-stopped
     environment:
       CONFIG_FILE: '/data/config.yml'
       LOG_FILE: '/data/data-monitorlog'
