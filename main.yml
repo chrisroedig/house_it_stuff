@@ -1,5 +1,5 @@
 ---
-- hosts: [main, dmz]
+- hosts: all
   become: true
 
   pre_tasks:
@@ -8,58 +8,16 @@
       loop:
         - default.config.yml
         - config.yml
+  roles: 
+   - common
 
-    - name: Ensure apt cache is up to date.
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 3600
-      when:
-        - ansible_facts.os_family == "Debian"
-
-- hosts: main
-  become: true
-  handlers:
-    - name: Include handlers.
-      ansible.builtin.import_tasks: tasks/handlers.yml
-
+- hosts: all
   tasks:
-    - name: Setup Docker.
-      ansible.builtin.import_tasks: tasks/docker.yml
-
-    # - name: Set up Pi Hole.
-    #   ansible.builtin.import_tasks: tasks/pi-hole.yml
-    #   when: pihole_enable
-
-    - name: Set up Mosquitto MQTT
-      ansible.builtin.import_tasks: tasks/mosquitto.yml
-    
-    - name: Set up Influx TICK stack
-      ansible.builtin.import_tasks: tasks/tick-stack.yml
-    
-    - name: Set up Grafana
-      ansible.builtin.import_tasks: tasks/grafana.yml
-    
-    - name: Set up Node Red
-      ansible.builtin.import_tasks: tasks/node-red.yml
-    
-    - name: Set up Homebridge
-      ansible.builtin.import_tasks: tasks/homebridge.yml
-    
-    # - name: Set up Home Home Assistant
-    #   ansible.builtin.import_tasks: tasks/home-assistant.yml
-    
-    - name: Set up data-monitor
-      ansible.builtin.import_tasks: tasks/data-monitor.yml
-
-    - name: Set up Cloudflare
-      ansible.builtin.import_tasks: tasks/cloudflare-tunnel.yml
-
-- hosts: dmz
-  become: true
-  handlers:
-    - name: Include handlers.
-      ansible.builtin.import_tasks: tasks/handlers.yml
-  
-  tasks:
-    - name: Setup NGINX
-      ansible.builtin.import_tasks: tasks/nginx.yml
+    - name: debug services
+      debug:
+        msg: "{{ services }}"
+    - name: include roles mentioned in services
+      include_role:
+        name: "{{ item }}"
+      loop: "{{ services }}"
+      when: services is defined

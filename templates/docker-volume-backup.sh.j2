@@ -1,0 +1,11 @@
+mkdir /tmp/backups
+
+# Create backups of each service dir
+{%- for service in service_backups[inventory_dir] %}
+  tar -cvzf /tmp/backups/{{ service }}.tar.gz {{ config_dir }}/{{ service }}
+{% endfor %}
+
+# Upload backups to S3
+# {%- for service in service_backups[inventory_dir] %}
+#  aws s3 cp /tmp/backups/{{ service }}.tar.gz s3://{{ backups_s3_bucket }}/{{ inventory_hostname }}-{{ service }}.tar.gz
+# {% endfor %}

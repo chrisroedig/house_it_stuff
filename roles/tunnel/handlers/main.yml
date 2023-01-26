@@ -1,0 +1,7 @@
+---
+- name: Restart cloudflare-tunnel
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/cloudflare-tunnel/"
+    build: true # make sure it picks up new source code
+    restarted: true
+  become: false

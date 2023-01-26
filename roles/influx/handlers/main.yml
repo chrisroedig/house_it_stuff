@@ -1,0 +1,7 @@
+---
+- name: Restart tick-stack
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/tick-stack/"
+    build: false
+    restarted: true
+  become: false

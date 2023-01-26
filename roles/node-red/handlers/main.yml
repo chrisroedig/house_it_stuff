@@ -1,0 +1,7 @@
+---
+- name: Restart node-red
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/node-red/"
+    build: false
+    restarted: true
+  become: false

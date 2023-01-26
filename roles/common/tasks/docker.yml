@@ -25,7 +25,7 @@
     state: started
     enabled: true
 
-- name: Ensure dependencies are installed (Debian).
+- name: Ensure APT dependencies are installed (Debian).
   ansible.builtin.apt:
     name:
       - libffi-dev
@@ -37,9 +37,12 @@
     state: present
   when: ansible_facts.os_family == "Debian"
 
-- name: Install Docker Compose using Pip.
+- name: Ensure pip dependencies are installed.
   ansible.builtin.pip:
-    name: docker-compose
+    name: 
+      - bcrypt==3.2.2
+      - docker
+      - docker-compose
     state: present
     executable: pip3
 

@@ -1,0 +1,7 @@
+---
+- name: Restart mosquitto
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/mosquitto/"
+    build: false
+    restarted: true
+  become: false

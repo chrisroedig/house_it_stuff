@@ -1,0 +1,9 @@
+---
+- name: Change the hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+  register: hostanme_result
+
+- name: Reboot if name changed
+  ansible.builtin.reboot:
+  when: hostanme_result.changed
